@@ -5,14 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo_white.svg') }}">
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 
 <body>
-    <section>Page 1 Content</section>
-    <section>Page 2 Content</section>
-    <section>Page 3 Content</section>
-    <!-- Add more sections as needed -->
+    <header>
+        <img src="{{ url_for('static', filename='images/logo_black.svg') }}" alt="Logo" id="header-logo">
+        <span id="header-title">header</span>
+        <span id="header-page-count">10/11</span>
+    </header>
+    <main>
+        <section>Page 1 Content</section>
+        <section>Page 2 Content</section>
+        <section>Page 3 Content</section>
+    </main>
+    <footer>
+        footer
+    </footer>
 </body>
 
 </html>
