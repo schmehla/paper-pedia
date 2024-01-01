@@ -78,6 +78,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
         tmpl.Execute(w, nil)
         return
     }
+    searchWord = strings.ReplaceAll(searchWord, " ", "+")
 
     articles, err := getWikipediaArticles(searchWord)
     if err != nil {
@@ -94,6 +95,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
     tmpl, _ := template.ParseFiles("templates/index_go.html")
     tmpl.Execute(w, map[string]interface{}{
+        "Title": "Search",
         "Main": template.HTML(innerHTML.String()),
     })
 }
