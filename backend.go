@@ -26,7 +26,7 @@ func main() {
     http.HandleFunc("/search", handleSearch)
     http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
 
-    log.Fatal(http.ListenAndServe(":80", nil))
+    log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
