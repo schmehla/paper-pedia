@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="icon" type="image/svg+xml" href="/static/images/logo_white.svg">
+    <script src="/static/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <a id="header-logo" href="/">
+            <img src="/static/images/logo_black.svg" alt="Logo">
+        </a>
+        <span id="header-title">{{.Title}}</span>
+        <form action="/search" method="get">
+            <input type="search" id="header-search" name="q" placeholder="start typing...">
+            <input id="header-search-submit" type="submit" value="Search">
+        </form>
+    </header>
+    <main>
+        {{.Main}}
+    </main>
+    <footer>
+        <button class="fontsize-change-btn" onclick="changeFontsize(-1)">-</button>
+        <button class="fontsize-change-btn" style="margin-left: 1vh;" onclick="changeFontsize(1)">+</button>
+        <a class="footer-ref" style="margin-left: auto;" href="/impressum">Impressum</a>
+        <a class="footer-ref" style="margin-left: 1vh;" href="/about">About</a>
+        <span style="margin-left: 1vh;" id="footer-page-count"></span>
+        <button class="page-change-btn" style="margin-left: 1vh;" onclick="changePage(-1)">&lt;</button>
+        <button class="page-change-btn" style="margin-left: 1vh;" onclick="changePage(1)">&gt;</button>
+    </footer>
+</body>
+
+</html>

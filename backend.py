@@ -82,7 +82,6 @@ def get_wikipedia_articles(search_word):
     }
     response = requests.get(base_url, params=params)
     data = response.json()
-    print(data["query"]["search"])
 
     # Extract the titles of the articles
     articles = [
@@ -93,4 +92,4 @@ def get_wikipedia_articles(search_word):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=False)
