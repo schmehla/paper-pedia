@@ -11,17 +11,26 @@
 
 <body>
     <header>
-        <img src="{{ url_for('static', filename='images/logo_black.svg') }}" alt="Logo" id="header-logo">
-        <span id="header-title">header</span>
-        <span id="header-page-count">10/11</span>
+        <a id="header-logo" href="/">
+            <img src="{{ url_for('static', filename='images/logo_black.svg') }}" alt="Logo">
+        </a>
+        <span id="header-title">{{ title }}</span>
+        <form action="/search" method="get">
+            <input type="search" id="header-search" name="q" placeholder="start typing...">
+            <input id="header-search-submit" type="submit" value="Search">
+        </form>
     </header>
     <main>
-        <section>Page 1 Content</section>
-        <section>Page 2 Content</section>
-        <section>Page 3 Content</section>
+        {{ main | safe }}
     </main>
     <footer>
-        footer
+        <button class="fontsize-change-btn" onclick="changeFontsize(-1)">{{ '-' }}</button>
+        <button class="fontsize-change-btn" style="margin-left: 1vh;" onclick="changeFontsize(1)">{{ '+' }}</button>
+        <a class="footer-ref" style="margin-left: auto;" href="/impressum">Impressum</a>
+        <a class="footer-ref" style="margin-left: 1vh;" href="/about">About</a>
+        <span style="margin-left: 1vh;" id="footer-page-count"></span>
+        <button class="page-change-btn" style="margin-left: 1vh;" onclick="changePage(-1)">{{ '<' }}</button>
+                <button class="page-change-btn" style="margin-left: 1vh;" onclick="changePage(1)">{{ '>' }}</button>
     </footer>
 </body>
 

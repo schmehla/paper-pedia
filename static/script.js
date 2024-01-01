@@ -1,18 +1,32 @@
 const main = document.querySelector('main')
+const pageCount = document.querySelector('#footer-page-count')
+
+const refreshPageCount = () => {
+    const numPages = Math.ceil(main.scrollHeight / main.offsetHeight)
+    const currentPage = Math.ceil(main.scrollTop / main.offsetHeight + 1)
+    pageCount.innerHTML = `page ${currentPage} / ${numPages}`
+}
+
+refreshPageCount()
 
 const changePage = (next) => {
     main.scrollBy(0, next * main.offsetHeight)
+    refreshPageCount()
+}
+
+const changeFontsize = (next) => {
+    const currentSize = parseInt(getComputedStyle(main).fontSize)
+    const newSize = currentSize + next
+    main.style.fontSize = `${newSize}px`
+    refreshPageCount()
 }
 
 window.addEventListener('keydown', (e) => {
-    if (['ArrowLeft', 'k', 'h'].includes(e.key)) {
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
         changePage(-1)
     }
-    if (['ArrowRight', 'j', 'l'].includes(e.key)) {
+    if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
         changePage(1)
-    }
-    if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-        e.preventDefault()
     }
 })
 
@@ -22,22 +36,27 @@ window.addEventListener('wheel', (e) => {
     changePage(Math.sign(e.deltaY))
 }, { passive: false })
 
-// Touch event
-let touchstartX = 0
-let touchendX = 0
+let touchStart = {
+    x: 0,
+    y: 0
+}
 
-// Arrow function for touchstart event
 document.addEventListener('touchstart', (e) => {
-    touchstartX = e.changedTouches[0].screenX
+    touchStart = {
+        x: e.changedTouches[0].screenX,
+        y: e.changedTouches[0].screenY
+    }
 }, false)
 
-// Arrow function for touchend event
 document.addEventListener('touchend', (e) => {
-    touchendX = e.changedTouches[0].screenX
-    handleGesture()
+    const touchDir = {
+        x: e.changedTouches[0].screenX - touchStart.x,
+        y: e.changedTouches[0].screenY - touchStart.y
+    }
+    handleGesture(touchDir)
 }, false)
 
-handleGesture = () => {
-    if (touchendX < touchstartX) changePage(1)
-    if (touchendX > touchstartX) changePage(-1)
+const handleGesture = (touchDir) => {
+    if (touchDir.x + touchDir.y < 0) changePage(1)
+    if (touchDir.x + touchDir.y > 0) changePage(-1)
 }
