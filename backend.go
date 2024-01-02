@@ -4,6 +4,7 @@ import (
     "fmt"
     "log"
     "net/http"
+    "golang.org/x/net/html"
     "html/template"
     "strings"
     "encoding/json"
@@ -55,11 +56,30 @@ func handleWiki(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    main, _ := doc.Find("#bodyContent").Html()
+    main := doc.Find("#bodyContent")
+    prefix := "data-"
+    main.Find("span.lazy-image-placeholder").Each(func(i int, s *goquery.Selection) {
+        imgNode := &html.Node{
+            Type: html.ElementNode,
+            Data: "img",
+        }
+        for _, attr := range s.Nodes[0].Attr {
+            if strings.HasPrefix(attr.Key, prefix) {
+                imgNode.Attr = append(imgNode.Attr, html.Attribute{
+                    Key:   attr.Key[len(prefix):],
+                    Val:   attr.Val,
+                })
+            }
+        }
+    
+        // Replace span with img
+        s.ReplaceWithNodes(imgNode)
+    })
     tmpl, _ := template.ParseFiles("templates/index_go.html")
+    mainHtml, _ := main.Html()
     tmpl.Execute(w, map[string]interface{}{
         "Title": strings.ReplaceAll(page, "_", " "),
-        "Main": template.HTML(main),
+        "Main": template.HTML(mainHtml),
     })
 }
 
