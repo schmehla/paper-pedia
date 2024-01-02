@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 
 @app.route("/wiki/<string:page>", methods=["GET"])
-def display_page(page):
+def handle_wiki(page):
     base_url = "https://en.m.wikipedia.org"
     response = requests.get(base_url + "/wiki/" + page)
     soup = BeautifulSoup(response.content, "html.parser")
@@ -43,22 +43,22 @@ def display_page(page):
 @app.route("/", methods=["GET"])
 @app.route("/wiki", methods=["GET"])
 @app.route("/wiki/", methods=["GET"])
-def display_home():
+def handle_main():
     return redirect("/wiki/Main_Page")
 
 
 @app.route("/about", methods=["GET"])
-def display_about():
+def handle_about():
     return "This is the about page"
 
 
 @app.route("/impressum", methods=["GET"])
-def display_impressum():
+def handle_impressum():
     return "This is the impressum page"
 
 
 @app.route("/search", methods=["GET"])
-def display_search():
+def handle_search():
     search_word = request.args.get("q")
     if search_word is None:
         return render_template("index.html", title="Search", main="no search word")
