@@ -61,6 +61,7 @@ document.addEventListener('touchend', (e) => {
 }, false)
 
 const handleGesture = (touchDir) => {
+    if (Math.abs(touchDir.x) < 50 && Math.abs(touchDir.y) < 50) return
     if (touchDir.x + touchDir.y < 0) changePage(1)
     if (touchDir.x + touchDir.y > 0) changePage(-1)
 }
