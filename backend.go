@@ -78,6 +78,7 @@ func handleWiki(w http.ResponseWriter, r *http.Request) {
     tmpl, _ := template.ParseFiles("templates/index_go.html")
     mainHtml, _ := main.Html()
     tmpl.Execute(w, map[string]interface{}{
+        "Search": "",
         "Title": strings.ReplaceAll(page, "_", " "),
         "Main": template.HTML(mainHtml),
     })
@@ -98,9 +99,8 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
         tmpl.Execute(w, nil)
         return
     }
-    searchWord = strings.ReplaceAll(searchWord, " ", "+")
 
-    articles, err := getWikipediaArticles(searchWord)
+    articles, err := getWikipediaArticles(strings.ReplaceAll(searchWord, " ", "+"))
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -115,6 +115,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
     tmpl, _ := template.ParseFiles("templates/index_go.html")
     tmpl.Execute(w, map[string]interface{}{
+        "Search": searchWord,
         "Title": "Search",
         "Main": template.HTML(innerHTML.String()),
     })

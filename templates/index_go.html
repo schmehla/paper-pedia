@@ -16,7 +16,7 @@
         </a>
         <span id="header-title">{{.Title}}</span>
         <form action="/search" method="get">
-            <input type="search" id="header-search" name="q" placeholder="start typing...">
+            <input type="search" id="header-search" name="q" value="{{.Search}}" placeholder="search...">
             <input id="header-search-submit" type="submit" value="Search">
         </form>
     </header>
