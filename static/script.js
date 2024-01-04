@@ -1,12 +1,14 @@
 const main = document.querySelector('main')
 const pageCount = document.querySelector('#footer-page-count')
 
+const MAIN_HEIGHT_FACTOR = 0.96
+
 const getMainHeight = () => {
-    return 0.96 * main.offsetHeight
+    return MAIN_HEIGHT_FACTOR * main.offsetHeight
 }
 
 const refreshPageCount = () => {
-    const numPages = Math.ceil(main.scrollHeight / getMainHeight())
+    const numPages = Math.ceil(main.scrollHeight / main.offsetHeight)
     const currentPage = Math.ceil(main.scrollTop / getMainHeight() + 1)
     pageCount.innerHTML = `page ${currentPage} / ${numPages}`
 }
