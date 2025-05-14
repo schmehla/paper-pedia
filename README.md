@@ -5,7 +5,7 @@ A lightweight wrapper for wikipedia written in Python and Go (and plain JS) opti
 - a button controlled zoom setting
 - a simple search function
 
-Disclaimer: Probably **!! not secure !!** As much stuff is pulled from wikipedia and injected into the page! Written in a day :)
+Disclaimer: Probably **!! not secure !!** As much stuff is pulled from wikipedia and blindly injected into the page w/o sanity checks! Written in a day :)
 
 ## Article Reader
 
