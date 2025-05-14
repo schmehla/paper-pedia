@@ -19,7 +19,7 @@ A lightweight wrapper for wikipedia written in Python and Go (and plain JS) opti
     - as a systemd service (in `/etc/systemd/system/paper-pedia.service`):
     - ```ini
       [Unit]
-      Description=PaperPedia
+      Description=paper-pedia
       After=network.target
       
       [Service]
